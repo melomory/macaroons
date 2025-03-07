@@ -19,9 +19,9 @@
             </svg>
       </div>
       <ul class="header__navigation">
-        <li class="header__navigation-item"><a class="header__navigation-link" href="#products">Пироженки</a></li>
-        <li class="header__navigation-item"><a class="header__navigation-link" href="#features">О нас</a></li>
-        <li class="header__navigation-item"><a class="header__navigation-link" href="#order">Оформить заказ</a></li>
+        <li class="header__navigation-item"><a class="header__navigation-link" (click)="scrollTo(productsElement)">Пироженки</a></li>
+        <li class="header__navigation-item"><a class="header__navigation-link" (click)="scrollTo(featuresElement)">О нас</a></li>
+        <li class="header__navigation-item"><a class="header__navigation-link" (click)="scrollTo(orderElement)">Оформить заказ</a></li>
       </ul>
     </nav>
     <a class="tel header__tel" href="tel:{{ normalizePhoneNumber(phoneNumber) }}">{{ phoneNumber }}</a>
@@ -43,7 +43,7 @@
   </div>
 </section>
 
-<section class="features" id="features">
+<section class="features" id="features" #featuresElement>
   <div class="container features__container">
     <h2 class="features__title">Мы печём для вас вкуснейшие макаруны уже более 10 лет</h2>
     <p class="features__text">Все пироженки мы готовим только из натуральных и качественных продуктов, без
