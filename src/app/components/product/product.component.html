@@ -1,0 +1,16 @@
+<div class="product">
+  <div class="product__media">
+    <img class="product__media-img" src="assets/images/products/{{ product.imageFileName }}"
+         alt="{{ product.imageDescription }}">
+  </div>
+  <h3 class="product__title">{{ product.title }}</h3>
+  <div class="product__action">
+    <button class="btn product__btn" buttonEffect
+            [buttonEffectDefaultBackground]="'linear-gradient(0, rgb(113, 8, 30) 0%, rgb(215, 72, 92) 100%)'"
+            [buttonEffectHoverBackground]="'linear-gradient(0, rgb(113, 8, 30) 0%, rgb(215, 72, 92) 100%)'"
+            (click)="addProductToCart()">Заказать
+    </button>
+  </div>
+  <p class="product__amount">{{ product.amount }} шт.</p>
+  <p class="product__price">{{ product.price | currency:'ru-RU':'руб.' }}</p>
+</div>
