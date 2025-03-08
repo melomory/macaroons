@@ -939,7 +939,7 @@ html, body {
   text-align: center;
 }
 
-.present {
+.cart {
   border-radius: 50%;
   background: radial-gradient(#71081e, #d7485c);
   position: fixed;
@@ -949,18 +949,35 @@ html, body {
   height: 90px;
   display: flex;
   align-items: center;
-  justify-content: center;
   z-index: 2;
   padding: 18px;
 }
 
-.present:hover {
+.cart:hover {
   box-shadow: 0 0 12.6px 2.4px rgba(130, 19, 40, 0.5);
 }
 
-.present__text {
+.cart__product-count {
+  position: absolute;
+  top: -16px;
+  right: 0;
+  background: #feefee;
+  color: #770a1d;
+  border: 2px solid #770a1d;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
   font-size: 15px;
   font-family: "Gilroy", sans-serif;
+  line-height: 1.733;
+  font-weight: 500;
+}
+
+.cart__text {
+  font-size: 15px;
+  font-family: "Gilroy", sans-serif;
+  text-align: center;
   color: #770a1d;
   line-height: 1.333;
   font-weight: 500;
@@ -968,8 +985,9 @@ html, body {
   background: #feefee;
   border: 2px solid #770a1d;
   border-radius: 10px;
-  padding: 10px 6px 10px 8px;
-  min-width: 172px;
+  padding: 10px 8px 10px 8px;
+  min-width: 100px;
+  min-height: 50px;
   letter-spacing: 0.02em;
   bottom: -80px;
   right: 110px;
@@ -977,16 +995,16 @@ html, body {
   transition: all 0.5s ease-out;
 }
 
-.present__image {
+.cart__image {
   width: 100%;
-  max-width: 53px;
+  max-width: 46px;
 }
 
 .message-arrow::after {
   content: "";
   position: absolute;
   right: -24px;
-  top: 19px;
+  top: 9px;
   bottom: auto;
   border: 11px solid;
   border-color: transparent transparent transparent #770a1d;
@@ -996,29 +1014,44 @@ html, body {
   content: "";
   position: absolute;
   right: -20px;
-  top: 20px;
+  top: 10px;
   bottom: auto;
   border: 10px solid;
   border-color: transparent transparent transparent #feefee;
   z-index: 1;
 }
 
-.present__link:hover ~ .present__text {
+.cart__link:hover ~ .cart__text {
   opacity: 1;
   transform: translate(0, -91px);
 }
 
 @media screen and (max-width: 1354px) {
-  .present {
+  .cart {
     width: 60px;
     height: 60px;
     padding: 12px;
     right: 15px;
   }
 
-  .present__text {
+  .cart__text {
     bottom: -100px;
     right: 80px;
+  }
+
+  .cart__image {
+    width: 100%;
+    max-width: 32px;
+  }
+
+  .cart__product-count {
+    top: -22px;
+    right: -6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 1.733;
   }
 }
 
