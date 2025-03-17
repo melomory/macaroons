@@ -24,7 +24,7 @@
         <li class="header__navigation-item"><a class="header__navigation-link" (click)="scrollTo(orderElement)">Оформить заказ</a></li>
       </ul>
     </nav>
-    <a class="tel header__tel" href="tel:{{ normalizePhoneNumber(phoneNumber) }}">{{ phoneNumber }}</a>
+    <a class="tel header__tel" href="tel:{{ normalizePhoneNumber(phoneNumber) }}">{{ phoneNumber | phoneFormat }}</a>
     <div class="header__burger" id="burger">☰</div>
   </div>
 </header>
@@ -35,7 +35,10 @@
     <p class="hero__text">Побалуйте себя и своих близких самыми вкусными и ароматными домашними пироженками
       Macaroon!</p>
     <div class="hero__action">
-      <button class="btn hero__btn" (click)="scrollTo(productsElement)">Выбрать макарун</button>
+      <button class="btn hero__btn" buttonEffect
+              [buttonEffectDefaultBackground]="'linear-gradient(0, rgb(113, 8, 30) 0%, rgb(215, 72, 92) 100%)'"
+              [buttonEffectHoverBackground]="'linear-gradient(0, rgb(113, 8, 30) 0%, rgb(215, 72, 92) 100%)'"
+              (click)="scrollTo(productsElement)">Выбрать макарун</button>
     </div>
     <div class="hero__media">
       <img class="hero__media-img" src="assets/images/hero-image.png" alt="Упаковка макарун">
@@ -53,10 +56,7 @@
       <img class="features__media-img" src="assets/images/makaroon-big.png" alt="Макарун">
     </div>
     <ul class="features__list">
-      <li class="features__item" *ngFor="let feature of features; let i = index">
-        <h3 class="features__item-title"><span class="features__item-number">{{ i + 1 }}</span>{{ feature.title }}</h3>
-        <p class="features__item-text">{{ feature.description }}</p>
-      </li>
+      <feature *ngFor="let feature of features; let featureNumber = index" [feature]="feature" [featureNumber]="featureNumber"></feature>
     </ul>
   </div>
 </section>
@@ -65,23 +65,7 @@
   <div class="container products__container">
     <h2 class="products__title">Выберите свой макарун</h2>
     <div class="products__items">
-      <div class="product" *ngFor="let product of products">
-        <div class="product__media">
-          <img class="product__media-img" src="assets/images/products/{{ product.imageFileName }}"
-               alt="{{ product.imageDescription }}">
-        </div>
-        <h3 class="product__title">{{ product.title }}</h3>
-        <div class="product__action">
-          <button class="btn product__btn" (click)="addToCart(product, orderElement)">Заказать</button>
-        </div>
-        <p class="product__amount">{{ product.amount }} шт.</p>
-        <p class="product__price">{{
-            product.price.toLocaleString('ru-ru', {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2
-            })
-          }} руб.</p>
-      </div>
+      <product *ngFor="let product of products" [product]="product" (addToCartEvent)="addToCart($event, orderElement)"></product>
     </div>
   </div>
 </section>
@@ -106,7 +90,10 @@
         <input type="text" class="base-input order__base-input" name="full-name" placeholder="Ваше имя" required [(ngModel)]="formValues.personName" >
         <input type="tel" class="base-input order__base-input" name="phone" placeholder="+375 (__) ___ - __ - __"
                required [(ngModel)]="formValues.phone">
-        <button class="btn order__btn" (click)="createOrder()">Оформить заказ</button>
+        <button class="btn order__btn" buttonEffect
+                [buttonEffectDefaultBackground]="'black'"
+                [buttonEffectHoverBackground]="'green'"
+                (click)="createOrder()">Оформить заказ</button>
       </form>
     </div>
   </div>
@@ -133,13 +120,11 @@
         <p class="social__text">Мы в Instagram</p>
       </div>
     </div>
-    <a class="tel footer__tel" href="tel:{{ normalizePhoneNumber(phoneNumber) }}">{{ phoneNumber }}</a>
+    <a class="tel footer__tel" href="tel:{{ normalizePhoneNumber(phoneNumber) }}">{{ phoneNumber | phoneFormat }}</a>
   </div>
 </footer>
-<div class="present" *ngIf="showPresent">
-  <a class="present__link" href="#"><img class="present__image" src="assets/images/present.png" alt="Подарок"></a>
-  <p class="present__text message-arrow">
-    Оформите заказ<br>
-    и получите подарок!
-  </p>
+<div class="cart" *ngIf="showCart">
+  <p class="cart__product-count" *ngIf="getCartProductCount() > 0">{{ getCartProductCount() }}</p>
+  <a class="cart__link" href="#"><img class="cart__image" src="assets/images/cart.png" alt="Корзина"></a>
+  <p class="cart__text message-arrow">{{ getCartTotalSum() | currency:'ru-RU':'руб.' }}</p>
 </div>
